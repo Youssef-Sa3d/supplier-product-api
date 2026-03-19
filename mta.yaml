@@ -1,0 +1,32 @@
+_schema-version: "3.1"
+ID: supplier-product-api
+description: Supplier Product Management API
+version: 1.0.0
+
+modules:
+  - name: supplier-product-api-srv
+    type: nodejs
+    path: .
+    parameters:
+      buildpack: nodejs_buildpack
+      disk-quota: 256M
+      memory: 256M
+    properties:
+      NODE_ENV: production
+    build-parameters:
+      builder: npm
+      build-result: .
+      ignore:
+        - node_modules/
+        - db.sqlite
+        - db/supplier-product.db
+        - .git/
+        - mta_archives/
+        - "@cds-models/"
+        - test/
+        - dist/
+        - "*.mtar"
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}

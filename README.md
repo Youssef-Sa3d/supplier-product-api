@@ -6,6 +6,7 @@
 ![Node.js](https://img.shields.io/badge/Node.js-20.x-green?logo=nodedotjs)
 ![Fiori Elements](https://img.shields.io/badge/SAP-Fiori_Elements-blue?logo=sap)
 ![Auth](https://img.shields.io/badge/Auth-Basic_Auth-orange)
+![BTP](https://img.shields.io/badge/SAP_BTP-Deployed-0FAAFF?logo=sap)
 
 A fully functional SAP CAP (Node.js) backend service for managing supplier products with automatic external data enrichment, OData/REST endpoints, input validation, custom actions, Basic Authentication, and a Fiori Elements UI.
 
@@ -45,6 +46,29 @@ cds watch
 ```
 
 Server runs at: http://localhost:4004
+
+---
+
+## BTP Deployment
+
+This project is deployed on **SAP BTP Cloud Foundry** (trial account).
+
+**Live URL:**
+```
+https://2d04a4c6trial-dev-supplier-product-api-srv.cfapps.us10-001.hana.ondemand.com
+```
+
+**Notes:**
+- All API endpoints are served under the `/odata/v4/catalog/` path prefix on BTP (vs `/catalog/` locally)
+- The BTP deployment uses SQLite on `/tmp` — data resets on each app restart (ephemeral storage by design for trial)
+- Authentication: same Basic Auth credentials (`admin` / `admin123`)
+- **⚠️ Trial Expiration**: The SAP BTP trial account, along with this deployment, will automatically expire after 60 days.
+
+**To redeploy after changes:**
+```bash
+mbt build
+cf deploy mta_archives/supplier-product-api_1.0.0.mtar
+```
 
 ---
 
@@ -131,8 +155,11 @@ Used CAP built-in Basic Auth to protect all service endpoints.
 
 ## Sample API Calls
 
-> Base URL: `http://localhost:4004`
+> **Local Base URL:** `http://localhost:4004`
+> **BTP Base URL:** `https://2d04a4c6trial-dev-supplier-product-api-srv.cfapps.us10-001.hana.ondemand.com/odata/v4`
 > All requests require Basic Auth — Username: `admin`, Password: `admin123`
+>
+> ⚠️ On BTP the path prefix is `/odata/v4/catalog/...` — locally it is `/catalog/...`
 
 ### Create a Supplier
 ```
@@ -207,5 +234,5 @@ POST {{baseUrl}}/odata/v4/catalog/submitReview
 - reviewer field defaults to 'Anonymous' since the action signature does not include it
 - averageRating is recalculated across all reviews on every submitReview call
 - SQLite is used for local development only
-- Basic Auth is used for simplicity — production would use JWT/XSUAA on SAP BTP
+- Basic Auth is used for simplicity 
 - dummyjson.com used instead of fakestoreapi.com due to network restrictions (documented above)
