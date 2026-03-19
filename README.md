@@ -77,7 +77,6 @@ The test environment does not load the TypeScript handler (`catalog-service.ts`)
 - Added `"typescript": true` to CDS config
 - Configured `ts-jest` with `tsconfig.json`
 - Used in-memory SQLite for test isolation
-- Compiled TypeScript to JS via `tsc`
 
 The tests pass for basic CRUD operations. All validations and the `submitReview` action work correctly when tested manually via Postman — the issue is specific to the test environment's TypeScript compilation pipeline.
 
