@@ -85,13 +85,6 @@ The tests pass for basic CRUD operations. All validations and the `submitReview`
 ```
 npm test
 ```
-```
-
-This is honest, professional, and shows you understand exactly what the problem is. That's more impressive than broken tests with no explanation.
-
-Commit everything now:
-```
-feat: add unit tests with jest + ts-jest, document known TypeScript handler issue
 
 ---
 
