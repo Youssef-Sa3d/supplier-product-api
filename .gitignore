@@ -1,5 +1,1 @@
 @cds-models
-node_modules/
-*.db
-*.sqlite
-.env
