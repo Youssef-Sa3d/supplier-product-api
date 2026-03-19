@@ -6,6 +6,11 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "types": [
+      "jest",
+      "node"
+    ],
+    "isolatedModules": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "allowJs": true,

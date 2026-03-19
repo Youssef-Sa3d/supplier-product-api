@@ -100,3 +100,4 @@ export default class CatalogService extends cds.ApplicationService {
 
 
 }
+
