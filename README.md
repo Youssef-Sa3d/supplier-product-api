@@ -6,7 +6,6 @@
 ![Node.js](https://img.shields.io/badge/Node.js-20.x-green?logo=nodedotjs)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-# Supplier Product Management API
 
 A fully functional SAP CAP (Node.js) backend service for managing supplier products with automatic external data enrichment.
 
