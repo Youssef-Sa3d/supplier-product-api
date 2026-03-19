@@ -26,7 +26,6 @@ A fully functional SAP CAP (Node.js) backend service for managing supplier produ
 1. Clone the repository
 ```
 git clone https://github.com/Youssef-Sa3d/supplier-product-api.git
-
 cd supplier-product-api
 ```
 
@@ -56,11 +55,7 @@ Use the following credentials for local development:
 - Username: `admin`
 - Password: `admin123`
 
-Add credentials to every request via the Authorization header:
-```
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
-```
-Or use the Basic Auth option in Postman/Bruno with username `admin` and password `admin123`.
+Use the Basic Auth option in Postman/Bruno or any HTTP client.
 
 ---
 
@@ -102,7 +97,7 @@ External API failures are caught and logged using CAP logger — product creatio
 Used `cds.log()` instead of `console.log` throughout for production-ready structured logging.
 
 ### Authentication
-Used CAP built-in Basic Auth to protect all service endpoints. In production this would be replaced with JWT/XSUAA on SAP BTP.
+Used CAP built-in Basic Auth to protect all service endpoints. 
 
 ---
 
@@ -115,7 +110,6 @@ Used CAP built-in Basic Auth to protect all service endpoints. In production thi
 ```
 POST {{baseUrl}}/odata/v4/catalog/Suppliers
 Content-Type: application/json
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
 
 {
   "name": "Test Supplier",
@@ -128,7 +122,6 @@ Authorization: Basic YWRtaW46YWRtaW4xMjM=
 ```
 POST {{baseUrl}}/odata/v4/catalog/Products
 Content-Type: application/json
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
 
 {
   "name": "Lipstick",
@@ -141,26 +134,22 @@ Authorization: Basic YWRtaW46YWRtaW4xMjM=
 ### List all Products
 ```
 GET {{baseUrl}}/odata/v4/catalog/Products
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
 ```
 
 ### List all Suppliers
 ```
 GET {{baseUrl}}/odata/v4/catalog/Suppliers
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
 ```
 
 ### List all Reviews
 ```
 GET {{baseUrl}}/odata/v4/catalog/ProductReviews
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
 ```
 
 ### Submit a Review
 ```
 POST {{baseUrl}}/odata/v4/catalog/submitReview
 Content-Type: application/json
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
 
 {
   "productID": "{{productID}}",
