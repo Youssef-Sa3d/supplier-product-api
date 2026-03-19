@@ -18,6 +18,17 @@
         "credentials": {
           "url": "db/supplier-product.db"
         }
+      },
+      "auth": {
+        "kind": "basic",
+        "users": {
+          "admin": {
+            "password": "admin123",
+            "roles": [
+              "admin"
+            ]
+          }
+        }
       }
     }
   },

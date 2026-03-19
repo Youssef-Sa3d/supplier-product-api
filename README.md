@@ -5,8 +5,9 @@
 ![SQLite](https://img.shields.io/badge/SQLite-local-lightgrey?logo=sqlite)
 ![Node.js](https://img.shields.io/badge/Node.js-20.x-green?logo=nodedotjs)
 ![Fiori Elements](https://img.shields.io/badge/SAP-Fiori_Elements-blue?logo=sap)
+![Auth](https://img.shields.io/badge/Auth-Basic_Auth-orange)
 
-A fully functional SAP CAP (Node.js) backend service for managing supplier products with automatic external data enrichment, OData/REST endpoints, input validation, custom actions, and a Fiori Elements UI.
+A fully functional SAP CAP (Node.js) backend service for managing supplier products with automatic external data enrichment, OData/REST endpoints, input validation, custom actions, Basic Authentication, and a Fiori Elements UI.
 
 ---
 
@@ -15,6 +16,7 @@ A fully functional SAP CAP (Node.js) backend service for managing supplier produ
 - TypeScript
 - SQLite (local persistence)
 - SAP Fiori Elements (annotation-driven UI)
+- Basic Authentication (CAP built-in)
 - dummyjson.com (external API — see Design Decisions)
 
 ---
@@ -24,6 +26,7 @@ A fully functional SAP CAP (Node.js) backend service for managing supplier produ
 1. Clone the repository
 ```
 git clone https://github.com/Youssef-Sa3d/supplier-product-api.git
+
 cd supplier-product-api
 ```
 
@@ -46,12 +49,28 @@ Server runs at: http://localhost:4004
 
 ---
 
+## Authentication
+The API is protected with Basic Authentication.
+
+Use the following credentials for local development:
+- Username: `admin`
+- Password: `admin123`
+
+Add credentials to every request via the Authorization header:
+```
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+```
+Or use the Basic Auth option in Postman/Bruno with username `admin` and password `admin123`.
+
+---
+
 ## Features
 - Full CRUD for Suppliers, Products, and ProductReviews via OData/REST
 - Automatic external rating enrichment on Product creation
 - submitReview action with average rating recalculation
 - Server-side input validation with meaningful error messages
 - Fiori Elements UI for all 3 entities
+- Basic Authentication on all endpoints
 - CAP logger for production-ready observability
 
 ---
@@ -59,6 +78,8 @@ Server runs at: http://localhost:4004
 ## Fiori Elements UI
 Annotation-driven Fiori Elements UI available for all 3 entities.
 Access the CAP server index page at http://localhost:4004 and click 'Fiori preview' next to each entity.
+
+Note: Use Basic Auth credentials when prompted by the browser.
 
 ---
 
@@ -80,17 +101,21 @@ External API failures are caught and logged using CAP logger — product creatio
 ### CAP Logger
 Used `cds.log()` instead of `console.log` throughout for production-ready structured logging.
 
+### Authentication
+Used CAP built-in Basic Auth to protect all service endpoints. In production this would be replaced with JWT/XSUAA on SAP BTP.
+
 ---
 
 ## Sample API Calls
 
 > Base URL: `http://localhost:4004`
-> Replace `{{baseUrl}}` with the base URL above when running locally.
+> All requests require Basic Auth — Username: `admin`, Password: `admin123`
 
 ### Create a Supplier
 ```
 POST {{baseUrl}}/odata/v4/catalog/Suppliers
 Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
 
 {
   "name": "Test Supplier",
@@ -103,6 +128,7 @@ Content-Type: application/json
 ```
 POST {{baseUrl}}/odata/v4/catalog/Products
 Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
 
 {
   "name": "Lipstick",
@@ -115,22 +141,26 @@ Content-Type: application/json
 ### List all Products
 ```
 GET {{baseUrl}}/odata/v4/catalog/Products
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
 ```
 
 ### List all Suppliers
 ```
 GET {{baseUrl}}/odata/v4/catalog/Suppliers
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
 ```
 
 ### List all Reviews
 ```
 GET {{baseUrl}}/odata/v4/catalog/ProductReviews
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
 ```
 
 ### Submit a Review
 ```
 POST {{baseUrl}}/odata/v4/catalog/submitReview
 Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
 
 {
   "productID": "{{productID}}",
@@ -160,4 +190,5 @@ POST {{baseUrl}}/odata/v4/catalog/submitReview
 - reviewer field defaults to 'Anonymous' since the action signature does not include it
 - averageRating is recalculated across all reviews on every submitReview call
 - SQLite is used for local development only
+- Basic Auth is used for simplicity — production would use JWT/XSUAA on SAP BTP
 - dummyjson.com used instead of fakestoreapi.com due to network restrictions (documented above)

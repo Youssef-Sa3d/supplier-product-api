@@ -1,4 +1,7 @@
 using { supplier.product as db } from '../db/schema';
+@requires: 'authenticated-user'
+
+
 
 service CatalogService {
     //entity {} as projection on db.Entity; automatically generates all 4 CRUD operations
