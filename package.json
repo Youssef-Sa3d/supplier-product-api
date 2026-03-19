@@ -1,0 +1,32 @@
+{
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "better-sqlite3": "^12.8.0",
+    "@cap-js/cds-types": "^0.16.0",
+    "tsx": "^4",
+    "typescript": "^5",
+    "@cap-js/cds-typer": ">=0.1"
+  },
+  "dependencies": {
+    "@cap-js/sqlite": "^2.2.0",
+    "@sap/cds": "^9.8.3"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": "db/supplier-product.db"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "start": "cds run",
+    "watch": "cds watch",
+    "deploy": "cds deploy --to sqlite:db/supplier-product.db"
+  },
+  "imports": {
+    "#cds-models/*": "./@cds-models/*/index.js"
+  }
+}
