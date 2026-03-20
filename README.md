@@ -85,6 +85,10 @@ mbt build
 cf deploy mta_archives/supplier-product-api_1.0.0.mtar
 ```
 
+### BTP Trial Runtime Limitations
+The SAP BTP trial account has limited runtime hours per day. The live deployment may be in a stopped state when accessed. 
+
+
 ---
 
 ## Authentication
