@@ -61,7 +61,8 @@
     "start": "node node_modules/@sap/cds/bin/deploy.js && node node_modules/@sap/cds/bin/serve.js",
     "watch": "cds watch",
     "deploy": "cds deploy --to sqlite:db/supplier-product.db",
-    "test": "jest --testEnvironment node"
+    "test": "jest --testEnvironment node",
+    "build": "tsc --outDir gen/srv"
   },
   "imports": {
     "#cds-models/*": "./@cds-models/*/index.js"

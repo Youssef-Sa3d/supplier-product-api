@@ -14,7 +14,10 @@ modules:
     properties:
       NODE_ENV: production
     build-parameters:
-      builder: npm
+      builder: custom
+      commands:
+        - npm install
+        - npm run build
       build-result: .
       ignore:
         - node_modules/

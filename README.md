@@ -64,6 +64,21 @@ https://2d04a4c6trial-dev-supplier-product-api-srv.cfapps.us10-001.hana.ondemand
 - Authentication: same Basic Auth credentials (`admin` / `admin123`)
 - **⚠️ Trial Expiration**: The SAP BTP trial account, along with this deployment, will automatically expire after 60 days.
 
+## Known BTP Deployment Limitations
+
+The following features work fully in local development but have limitations on the BTP trial deployment:
+
+### TypeScript Handler on BTP
+The CAP service handler (`catalog-service.ts`) is written in TypeScript. The BTP Cloud Foundry environment does not compile TypeScript at runtime, causing:
+- External API enrichment (`externalRating`) not being populated on product creation
+- `submitReview` action returning `501 - no handler found`
+
+All custom logic works correctly when running locally with `cds watch`.
+
+**Root cause:** TypeScript compilation pipeline for CAP on BTP Cloud Foundry requires additional build configuration beyond the scope of this evaluation task.
+
+**Workaround:** Run locally following the setup instructions above for full functionality.
+
 **To redeploy after changes:**
 ```bash
 mbt build
